@@ -114,3 +114,14 @@ trần theo đơn chặn nhiều claim khác nhau cùng đòi phần tiền đã
 - Không có cấu hình hoặc công cụ mypy/pyright trong môi trường; compileall không thay thế kiểm tra kiểu tĩnh.
 - Không sửa host, policy, durability, metrics, config hoặc dữ liệu đề bài.
 - Chưa thêm test mới khi seam bổ sung chưa được người dùng xác nhận; đợt này dùng các test sẵn có.
+
+## Review sau triển khai
+
+Mốc trước thay đổi: `034c6c421c198dae67a9211d15e2587d5a378972`.
+Commit triển khai: `fb6f0e5`.
+
+- Standards: không phát hiện vi phạm cần sửa. Phần setup/kết thúc tương tự giữa
+  ba shape được giữ trong từng file để phù hợp phạm vi file grader nhận.
+- Spec: không phát hiện lỗi cần sửa trong phần đã triển khai. Ticket 02 còn chờ
+  dữ liệu thật về nhóm, không đánh dấu hoàn thành toàn bộ CP1.
+- Chỉ sửa định dạng Markdown sau lượt chạy cuối 302 passed; không thay đổi code.
