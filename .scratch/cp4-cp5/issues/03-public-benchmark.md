@@ -4,7 +4,7 @@
 
 **Blocked by:** 01.
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] 4 shape × 14 claim × 5 seed, mỗi trial database mới.
-- [ ] Báo pass rate, pass^5, seed min/max/variance, cost/success, mean/p95 steps; ghi chi phí mô phỏng.
+- [x] Đã chạy 4 shape × 14 claim × 5 seed = 280 trial, mỗi trial database mới.
+- [x] Có bảng đủ metric và giới hạn trong báo cáo evaluation. Ba shape nhóm đạt 70/70; swarm 69/70 do lỗi tham chiếu đã biết.

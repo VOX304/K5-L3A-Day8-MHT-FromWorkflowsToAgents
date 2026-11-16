@@ -6,5 +6,5 @@
 
 **Status:** waiting-for-data
 
-- [ ] Kiểm tra bộ dữ liệu có được cung cấp không, ghi rõ trạng thái.
+- [x] Đã kiểm tra: không có bộ student_drop hoặc cặp hidden claims/world trong workspace. Đã ghi trạng thái và lệnh chạy khi có dữ liệu.
 - [ ] Chỉ chạy khi có đủ claims/world; không tạo dữ liệu giả thay cho bộ hidden.

@@ -28,7 +28,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| | | | |
+| Võ Công Minh | Ledger + evaluation (có trợ lý AI hỗ trợ thực thi; không nhận tác giả code shape của thành viên khác) | e27e680 | src/tests/test_evaluation_safety.py (33 ca), src/tests/test_evaluation_ablation.py (9 ca) |
 
 ## Cá nhân
 

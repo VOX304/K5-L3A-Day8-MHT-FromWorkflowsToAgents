@@ -27,9 +27,18 @@ Phần này nối tiếp phần mini research ở buổi lý thuyết (slide 62�
 
 ## Kết quả ablation
 
-- Lệnh đã chạy (copy nguyên văn):
-- Run id / file report:
-- Kết quả so với hypothesis (đúng / sai / không kết luận được), kèm số liệu:
+- Lệnh đã chạy (trong `src/`, PowerShell):
+
+```powershell
+.\.venv\Scripts\python.exe -m lab8.benchmark --shapes orchestrator,orchestrator_no_history --extra-shape orchestrator_no_history=bonus.orchestrator_no_history:run_claim --cases data/public_claims.jsonl --seeds 11,22,33,44,55 --out reports/ablation_history.json
+```
+
+- Phiên bản code đo: `e27e680`.
+- Run id / file report: `src/reports/ablation_history.json`; ví dụ `R-orchestrator-C-014-s55` và `R-orchestrator_no_history-C-014-s55`.
+- Kết quả: hypothesis đúng trong corpus này. Cả hai bản đạt 70/70 trial, pass rate = pass^5 = 1, variance = 0. Không có khác biệt theo cặp claim/seed về passed/status/reason/model_calls. Baseline trong ablation khớp toàn bộ 70 row baseline trong benchmark chính thức.
+- Tool calls giảm tổng 65; model calls giữ 140 ở mỗi bản. Tổng cost mô phỏng giảm từ 3.349,70 xuống 2.699,70 VND (650 VND, khoảng 19,40%). Cost/success giảm từ 47,852857 xuống 38,567143 VND. Mean/p95 trace steps giữ 5,357143/6.
+- Giải thích: host vẫn đọc lại lịch sử trong transaction; bước đọc trước đó của investigator ở phiên bản này chỉ thêm thông tin vào trace, không quyết định số tiền. Khi bỏ bước này, trường refunded_vnd trong trace có thể là null; tính quan sát lịch sử bị giảm dù quyết định tiền không đổi.
+- Không kết luận rằng mọi tool lịch sử đều dư thừa hoặc ít agent luôn tốt hơn. Thí nghiệm không đổi số agent; không sửa bản orchestrator chính thức. Metric steps đếm event trace, không phải số tool call nên không giảm trong ablation này.
 - Giới hạn: MockLLM không phải model sản xuất, latency là `unavailable`.
 
 Muốn đi xa hơn một ablation để lấy điểm cộng thì xem [docs/bonus_topics.md](../../docs/bonus_topics.md).
