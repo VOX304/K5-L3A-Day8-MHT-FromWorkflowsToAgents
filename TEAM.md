@@ -4,15 +4,18 @@
 
 - Tên nhóm:
 - Lớp: L3A
-- Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
+- Repo nhóm: `K5-L3A-Day8-MHT-FromWorkflowsToAgents`
+- URL repo: https://github.com/VOX304/K5-L3A-Day8-MHT-FromWorkflowsToAgents
 - URL repo, nhánh nộp, commit chốt:
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+| 1 | Nguyễn Đắc Tuấn Nghĩa | 2A202603442 | orange25k5@gmail.com | https://github.com/dacnghia-lx | Chờ nhóm xác nhận |
+| 2 | Chờ xác nhận họ tên | 2A202603500 | 26ai.hoachvm@vinuni.edu.vn | https://github.com/vumanhhoach2003 | Chờ nhóm xác nhận |
+| 3 | Nguyễn Văn Tùng | 2A202603471 | nguyenvantung011204@gmail.com | https://github.com/Nguyenvantung04 | Chờ nhóm xác nhận |
+| 4 | Võ Công Minh | 2A202503520 | congminhvox@gmail.com | https://github.com/vox304 | Chờ nhóm xác nhận |
 
 Gợi ý chia vai:
 

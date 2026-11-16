@@ -29,8 +29,14 @@ ones. `lab8.trace.Trace` does this; your own tracer is fine if it matches.
 
 from __future__ import annotations
 
-from lab8.schemas import RunResult
-from lab8.shapes.common import not_implemented
+from functools import partial
+
+from lab8.db import connect
+from lab8.durability import issue_refund
+from lab8.runtime import dispatch
+from lab8.schemas import Budget, RunResult, make_run_id
+from lab8.shapes.common import finish
+from lab8.trace import Trace
 
 
 def run_claim(
@@ -40,7 +46,50 @@ def run_claim(
     store_path: str,
     crash_at: str | None = None,
 ) -> RunResult:
-    # TODO CP2 (student): thay stub này bằng shape workflow theo các bước ở docstring đầu file.
-    # TODO CP3 (student): truyền crash_at vào durability.issue_refund, không bắt InjectedCrash.
-    del store_path, crash_at
-    return not_implemented("workflow", claim_id, seed)
+    conn = connect(store_path)
+    budget = Budget()
+    trace = Trace(make_run_id("workflow", claim_id, seed))
+    result = partial(
+        finish, conn, shape="workflow", claim_id=claim_id, seed=seed,
+        budget=budget, trace=trace,
+    )
+    try:
+        claim = dispatch(conn, budget, "get_claim_view", {"claim_id": claim_id}, worker=True)
+        # Never trace the ticket: even a safe claim view contains untrusted text.
+        trace.add("claim", {"found": claim["found"]})
+        if not claim["found"]:
+            return result(status="failed", proposal_amount=0, error_reason="unknown_claim")
+        if not claim["order_id"]:
+            return result(status="needs_info", proposal_amount=0, error_reason="missing_order_id")
+
+        order_view = dispatch(
+            conn, budget, "lookup_order",
+            {"order_id": claim["order_id"], "principal_id": claim["principal_id"]},
+            worker=True,
+        )
+        trace.add("order", order_view)
+        if not order_view["visible"]:
+            return result(status="escalated", proposal_amount=0, error_reason=order_view["reason"])
+
+        quote = dispatch(
+            conn, budget, "compute_compensation", {"order": order_view["order"]}, worker=True,
+        )
+        trace.add("quote", quote)
+        proposal = int(quote["amount_vnd"])
+        if proposal <= 0:
+            return result(status="denied", proposal_amount=0, error_reason=quote["reason"])
+
+        # Full entitlement goes to the host, which applies approvals and prior refunds.
+        outcome = issue_refund(conn, claim_id, proposal, crash_at=crash_at)
+        status = "resolved" if outcome["ok"] else ("failed" if outcome["conflict"] else "denied")
+        trace.add("decision", {"status": status, "reason": outcome["reason"]})
+        return result(
+            status=status, proposal_amount=proposal,
+            error_reason=None if outcome["ok"] else outcome["reason"],
+        )
+    finally:
+        # Also flush safe evidence when InjectedCrash propagates to the caller.
+        try:
+            trace.write()
+        finally:
+            conn.close()

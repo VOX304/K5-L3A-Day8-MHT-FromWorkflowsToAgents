@@ -18,8 +18,16 @@ ones. `lab8.trace.Trace` does this; your own tracer is fine if it matches.
 
 from __future__ import annotations
 
-from lab8.schemas import RunResult
-from lab8.shapes.common import not_implemented
+from functools import partial
+
+from lab8.db import connect
+from lab8.durability import issue_refund
+from lab8.handoff import make_handoff
+from lab8.mock_llm import complete
+from lab8.runtime import dispatch, run_readonly_investigators
+from lab8.schemas import Budget, RunResult, make_run_id
+from lab8.shapes.common import finish
+from lab8.trace import Trace
 
 
 def run_claim(
@@ -29,7 +37,52 @@ def run_claim(
     store_path: str,
     crash_at: str | None = None,
 ) -> RunResult:
-    # TODO CP2 (student): thay stub này bằng shape orchestrator theo các bước ở docstring đầu file.
-    # TODO CP3 (student): truyền crash_at vào durability.issue_refund, không bắt InjectedCrash.
-    del store_path, crash_at
-    return not_implemented("orchestrator", claim_id, seed)
+    conn = connect(store_path)
+    budget = Budget()
+    trace = Trace(make_run_id("orchestrator", claim_id, seed))
+    result = partial(
+        finish, conn, shape="orchestrator", claim_id=claim_id, seed=seed,
+        budget=budget, trace=trace,
+    )
+    try:
+        claim = dispatch(conn, budget, "get_claim_view", {"claim_id": claim_id}, worker=True)
+        trace.add("claim", {"found": claim["found"]})
+        if not claim["found"]:
+            return result(status="failed", proposal_amount=0, error_reason="unknown_claim")
+        if not claim["order_id"]:
+            return result(status="needs_info", proposal_amount=0, error_reason="missing_order_id")
+
+        complete(budget, seed=seed, purpose="plan", prompt="investigate owner order and current policy")
+        handoff = make_handoff(
+            request_id=f"REQ-{claim_id}", claim_id=claim_id,
+            task="check_applicable_policy", facts={},
+            allowed_tools=["lookup_order", "lookup_policy", "compute_compensation"],
+        )
+        trace.add("handoff", handoff)
+        investigated = run_readonly_investigators(
+            conn, budget, handoff, principal_id=claim["principal_id"],
+        )
+        order_view = investigated["tools"]["lookup_order"]
+        trace.add("order", order_view)
+        if not order_view["visible"]:
+            return result(status="escalated", proposal_amount=0, error_reason=order_view["reason"])
+
+        quote = investigated["tools"]["compute_compensation"]
+        trace.add("quote", quote)
+        proposal = int(quote["amount_vnd"])
+        if proposal <= 0:
+            return result(status="denied", proposal_amount=0, error_reason=quote["reason"])
+
+        # Investigators cannot pay; the orchestrator submits the full quote to the host.
+        outcome = issue_refund(conn, claim_id, proposal, crash_at=crash_at)
+        status = "resolved" if outcome["ok"] else ("failed" if outcome["conflict"] else "denied")
+        trace.add("decision", {"status": status, "reason": outcome["reason"]})
+        return result(
+            status=status, proposal_amount=proposal,
+            error_reason=None if outcome["ok"] else outcome["reason"],
+        )
+    finally:
+        try:
+            trace.write()
+        finally:
+            conn.close()
