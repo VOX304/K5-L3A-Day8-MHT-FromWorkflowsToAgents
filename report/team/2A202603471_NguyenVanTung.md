@@ -56,6 +56,7 @@
 
 ## 4. Bằng chứng
 
+- **Commit chính**: `ddb1169` (`feat(single-agent): implement ReAct single agent, unit tests, and personal report`)
 - **Files đã tạo / chỉnh sửa**:
   - `src/lab8/shapes/single.py`: Triển khai đầy đủ hàm `run_claim` cho Single Agent.
   - `src/tests/test_single_agent.py`: Bổ sung 3 test case chuyên biệt cho shape `single`.
