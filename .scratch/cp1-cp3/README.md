@@ -3,7 +3,7 @@
 | Ticket | Trạng thái | Bị chặn bởi |
 | --- | --- | --- |
 | [01: Môi trường](issues/01-environment.md) | Done | Không |
-| [02: Contract và nhóm](issues/02-contracts-and-team.md) | Chờ thông tin nhóm | Không |
+| [02: Contract và nhóm](issues/02-contracts-and-team.md) | Chờ xác nhận vai trò | Không |
 | [03: Workflow](issues/03-workflow.md) | Done | 01 và phần contract của 02 |
 | [04: Single](issues/04-single.md) | Done | 01 và phần contract của 02 |
 | [05: Orchestrator](issues/05-orchestrator.md) | Done | 01 và phần contract của 02 |

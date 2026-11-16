@@ -100,7 +100,7 @@ trần theo đơn chặn nhiều claim khác nhau cùng đòi phần tiền đã
 
 ## Phần cần người trong nhóm xác nhận
 
-- Tên nhóm, họ tên của MSSV 2A202603500 và vai trò thực tế của bốn thành viên.
+- Đã xác nhận tên nhóm MHT và Vũ Mạnh Hoạch (2A202603500); còn chờ vai trò thực tế của bốn thành viên.
 - Đọc và chạy các ví dụ trên, ghi đóng góp thật và test thật vào bảng đóng góp.
 - Không suy ra kết quả hidden hoặc model sản xuất từ test public.
 - Benchmark, ADR lựa chọn kiến trúc và bài nộp đầy đủ thuộc CP4–CP5, chưa nằm trong đợt này.

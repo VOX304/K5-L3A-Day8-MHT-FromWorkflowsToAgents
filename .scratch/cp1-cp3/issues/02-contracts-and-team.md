@@ -8,4 +8,5 @@
 
 - [x] Có hướng dẫn claim/order/quote/approval/ledger, năm trạng thái và ví dụ hoàn chênh lệch.
 - [x] Ghi nhận thông tin thật của bốn thành viên.
-- [ ] Xác nhận họ tên của MSSV 2A202603500, tên nhóm và vai trò từng người.
+- [x] Xác nhận tên nhóm MHT và họ tên Vũ Mạnh Hoạch của MSSV 2A202603500.
+- [ ] Xác nhận vai trò từng người.
