@@ -98,9 +98,9 @@ Ledger mới là bằng chứng đã ghi effect; checkpoint riêng lẻ không �
 Hai kiểu chống hoàn trùng khác nhau: idempotency chặn cùng claim ghi lại;
 trần theo đơn chặn nhiều claim khác nhau cùng đòi phần tiền đã hoàn.
 
-## Phần cần người trong nhóm xác nhận
+## Thông tin nhóm và phần chuẩn bị bài nộp
 
-- Đã xác nhận tên nhóm MHT và Vũ Mạnh Hoạch (2A202603500); còn chờ vai trò thực tế của bốn thành viên.
+- Đã xác nhận nhóm MHT và đầy đủ thông tin, vai trò: Vũ Mạnh Hoạch — workflow + integration; Nguyễn Văn Tùng — single; Nguyễn Đắc Tuấn Nghĩa — orchestrator + handoff; Võ Công Minh — ledger + evaluation.
 - Đọc và chạy các ví dụ trên, ghi đóng góp thật và test thật vào bảng đóng góp.
 - Không suy ra kết quả hidden hoặc model sản xuất từ test public.
 - Benchmark, ADR lựa chọn kiến trúc và bài nộp đầy đủ thuộc CP4–CP5, chưa nằm trong đợt này.
@@ -122,6 +122,6 @@ Commit triển khai: `fb6f0e5`.
 
 - Standards: không phát hiện vi phạm cần sửa. Phần setup/kết thúc tương tự giữa
   ba shape được giữ trong từng file để phù hợp phạm vi file grader nhận.
-- Spec: không phát hiện lỗi cần sửa trong phần đã triển khai. Ticket 02 còn chờ
-  dữ liệu thật về nhóm, không đánh dấu hoàn thành toàn bộ CP1.
+- Spec: không phát hiện lỗi cần sửa trong phần đã triển khai. Khi review, Ticket 02
+  còn chờ thông tin nhóm; sau đó người dùng đã xác nhận đầy đủ, ticket đã hoàn thành.
 - Chỉ sửa định dạng Markdown sau lượt chạy cuối 302 passed; không thay đổi code.

@@ -12,10 +12,10 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-| 1 | Nguyễn Đắc Tuấn Nghĩa | 2A202603442 | orange25k5@gmail.com | https://github.com/dacnghia-lx | Chờ nhóm xác nhận |
-| 2 | Vũ Mạnh Hoạch | 2A202603500 | 26ai.hoachvm@vinuni.edu.vn | https://github.com/vumanhhoach2003 | Chờ nhóm xác nhận |
-| 3 | Nguyễn Văn Tùng | 2A202603471 | nguyenvantung011204@gmail.com | https://github.com/Nguyenvantung04 | Chờ nhóm xác nhận |
-| 4 | Võ Công Minh | 2A202503520 | congminhvox@gmail.com | https://github.com/vox304 | Chờ nhóm xác nhận |
+| 1 | Nguyễn Đắc Tuấn Nghĩa | 2A202603442 | orange25k5@gmail.com | https://github.com/dacnghia-lx | Orchestrator + handoff |
+| 2 | Vũ Mạnh Hoạch | 2A202603500 | 26ai.hoachvm@vinuni.edu.vn | https://github.com/vumanhhoach2003 | Workflow + integration |
+| 3 | Nguyễn Văn Tùng | 2A202603471 | nguyenvantung011204@gmail.com | https://github.com/Nguyenvantung04 | Single |
+| 4 | Võ Công Minh | 2A202503520 | congminhvox@gmail.com | https://github.com/vox304 | Ledger + evaluation |
 
 Gợi ý chia vai:
 

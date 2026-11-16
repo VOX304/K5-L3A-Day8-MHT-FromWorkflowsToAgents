@@ -4,9 +4,9 @@
 
 **Blocked by:** None (can start immediately).
 
-**Status:** in-progress
+**Status:** done
 
 - [x] Có hướng dẫn claim/order/quote/approval/ledger, năm trạng thái và ví dụ hoàn chênh lệch.
 - [x] Ghi nhận thông tin thật của bốn thành viên.
 - [x] Xác nhận tên nhóm MHT và họ tên Vũ Mạnh Hoạch của MSSV 2A202603500.
-- [ ] Xác nhận vai trò từng người.
+- [x] Xác nhận vai trò: Vũ Mạnh Hoạch — workflow + integration; Nguyễn Văn Tùng — single; Nguyễn Đắc Tuấn Nghĩa — orchestrator + handoff; Võ Công Minh — ledger + evaluation.
