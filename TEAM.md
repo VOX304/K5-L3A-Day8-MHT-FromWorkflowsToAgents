@@ -28,6 +28,9 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
+| Nguyễn Đắc Tuấn Nghĩa | Orchestrator + handoff | d33bd49 | src/tests/test_orchestrator_shape.py (20 ca) |
+| Vũ Mạnh Hoạch | Workflow + integration | 07dba1e | |
+| Nguyễn Văn Tùng | Single agent | ddb1169 | src/tests/test_single_agent.py |
 | Võ Công Minh | Ledger + evaluation (có trợ lý AI hỗ trợ thực thi; không nhận tác giả code shape của thành viên khác) | e27e680 | src/tests/test_evaluation_safety.py (33 ca), src/tests/test_evaluation_ablation.py (9 ca) |
 
 ## Cá nhân
@@ -42,16 +45,21 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 Sao chép mục dưới đây cho từng thành viên.
 
-## MSSV_HoTen
+## 2A202603471_NguyenVanTung
 
 ### Phần việc phụ trách
 
--
+- Single agent (Shape B - ReAct loop) tại `src/lab8/shapes/single.py`.
 
 ### Đóng góp cụ thể
 
--
+- Triển khai ReAct loop với max 8 steps, sandbox `worker=True` chỉ cho phép công cụ đọc.
+- Cơ chế không tin dữ liệu ticket của khách, luôn tra cứu DB đơn hàng để tính bồi thường thực tế.
+- Tách quyền ghi duy nhất cho Host và xử lý an toàn crash injection.
+- Viết bộ kiểm thử `src/tests/test_single_agent.py`.
 
 ### Bằng chứng
 
--
+- Commit `ddb1169`.
+- Báo cáo chi tiết: `report/team/2A202603471_NguyenVanTung.md`.
+- Test passed: `src/tests/test_single_agent.py` và 62/62 test case `single` trong `test_public_matrix.py`.
