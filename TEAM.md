@@ -29,7 +29,7 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | Nguyễn Đắc Tuấn Nghĩa | Orchestrator + handoff | d33bd49 | src/tests/test_orchestrator_shape.py (20 ca) |
-| Vũ Mạnh Hoạch | Workflow + integration | 07dba1e | |
+| Vũ Mạnh Hoạch | Workflow + integration | 07dba1e | src/tests/test_workflow_shape.py |
 | Nguyễn Văn Tùng | Single agent | ddb1169 | src/tests/test_single_agent.py |
 | Võ Công Minh | Ledger + evaluation (có trợ lý AI hỗ trợ thực thi; không nhận tác giả code shape của thành viên khác) | e27e680 | src/tests/test_evaluation_safety.py (33 ca), src/tests/test_evaluation_ablation.py (9 ca) |
 
@@ -78,12 +78,13 @@ Sao chép mục dưới đây cho từng thành viên.
 - Ghi trace xuống đĩa trước khi gọi host để trace vẫn hợp lệ khi crash; không ghi claim row, ticket hay order row thô.
 - Chạy kiểm thử tích hợp: host test, toàn bộ student test, retry C-001 trên cùng database, crash suite và benchmark 4 shape.
 - Đề xuất chọn workflow vì cùng độ đúng với single/orchestrator nhưng chi phí thấp nhất và ít tự chủ nhất.
+- Bộ kiểm thử `src/tests/test_workflow_shape.py` (37 ca, có trợ lý AI hỗ trợ viết): workflow không gọi model, kết quả không đổi theo seed, crash ở 3 điểm vẫn một refund, truyền quote đầy đủ ở T14, không tin số ngày trễ trong ticket, trace không lộ secret/PII.
 
 ### Bằng chứng
 
 - Commit `07dba1e` (`feat: workflow + integration`).
 - Báo cáo chi tiết: `report/team/2A202603500_VuManhHoach.md`.
-- Test passed: 62/62 test case `workflow` trong `test_public_matrix.py`. Benchmark: pass rate 1.000, pass^5 1.000, variance 0, cost/success 34.29 VND mô phỏng, 0 model call. Run id mẫu: `R-workflow-C-001-s11`.
+- Test passed: 62/62 test case `workflow` trong `test_public_matrix.py` và 37/37 trong `src/tests/test_workflow_shape.py`. Benchmark: pass rate 1.000, pass^5 1.000, variance 0, cost/success 34.29 VND mô phỏng, 0 model call. Run id mẫu: `R-workflow-C-001-s11`.
 
 ## 2A202603471_NguyenVanTung
 

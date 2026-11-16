@@ -59,10 +59,20 @@ Swarm sai đúng một trial, `R-swarm-C-002-s55`: tin ticket "trễ 5 ngày" th
 
 An toàn và durability:
 
-- Crash suite chính thức `src/reports/crash.json`: **20/20**. Suite này chủ yếu kiểm host và một ca swarm, nên nhóm bổ sung 9 ca crash end-to-end (3 cửa sổ crash × 3 shape) trong `src/tests/test_evaluation_safety.py` và 3 ca crash riêng cho orchestrator trong `src/tests/test_orchestrator_shape.py`. Tất cả đều chỉ ra một refund và một audit `refund_committed`.
+- Crash suite chính thức `src/reports/crash.json`: **20/20**. Suite này chủ yếu kiểm host và một ca swarm, nên nhóm bổ sung 9 ca crash end-to-end (3 cửa sổ crash × 3 shape) trong `src/tests/test_evaluation_safety.py` và 3 ca crash riêng cho mỗi shape workflow và orchestrator trong `src/tests/test_workflow_shape.py` và `src/tests/test_orchestrator_shape.py`. Tất cả đều chỉ ra một refund và một audit `refund_committed`.
 - Approval: 15 ca approval thiếu, không tìm thấy, hết hạn, thu hồi, sai claim đều `denied`, không có refund, có `policy_denied` đúng lý do.
 - Secret/PII: trace của cả 14 claim (orchestrator) và stdout/stderr/artifact của ca C-010 (ba shape) không chứa canary, header hay giá trị PII.
-- Tổng test (`python -m pytest -q -o addopts=`): 364 passed ở commit đo `e27e680` (`src/reports/evaluation_tests.xml`); 367 passed ở commit chốt `06279a5` sau khi merge thêm test của single agent.
+- Tổng test (`python -m pytest -q -o addopts=`): 364 passed ở commit đo `e27e680` (`src/reports/evaluation_tests.xml`); 367 passed ở `06279a5` sau khi merge thêm test của single agent; 404 passed sau khi thêm 37 test của workflow.
+- Bằng chứng riêng cho shape chọn (`src/tests/test_workflow_shape.py`, 37 ca): workflow không gọi model và dùng 0 token ở cả 14 claim; status, số tiền và cost không đổi qua 5 seed; crash ở 3 điểm vẫn một refund; T14 truyền quote 150.000 và host chỉ ghi 120.000; C-002 `denied` ở cả 5 seed; trace không lộ secret/PII.
+
+Bộ test nhóm tự thêm, theo thành viên:
+
+| Thành viên | File test | Số ca |
+| --- | --- | ---: |
+| Vũ Mạnh Hoạch | `src/tests/test_workflow_shape.py` (có trợ lý AI hỗ trợ viết) | 37 |
+| Nguyễn Văn Tùng | `src/tests/test_single_agent.py` | 3 |
+| Nguyễn Đắc Tuấn Nghĩa | `src/tests/test_orchestrator_shape.py` | 20 |
+| Võ Công Minh | `src/tests/test_evaluation_safety.py`, `src/tests/test_evaluation_ablation.py` | 33 + 9 |
 - Hidden: chưa có `student_drop/` trong workspace nên chưa tự kiểm; pass rate hidden do giảng viên chấm.
 
 Quyết định kiến trúc và lý do: xem `report/team/decision_adr.md` (chọn **workflow**). Phiếu nghiên cứu và ablation: xem `report/team/research_card.md`. Ablation bỏ `lookup_refund_history` khỏi investigator giữ nguyên 70/70 và giảm cost/success của orchestrator từ 47.85 xuống 38.57 VND (`src/reports/ablation_history.json`).
